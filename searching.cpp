@@ -44,6 +44,7 @@ int main()
     int n;
     clock_t t;
     int keys[5];
+    double time_taken,time_taken_li=0.0,time_taken_bi=0.0;
 
     // Input the size of the array 10 100 200 500 1000 2000 5000 10000
     cin >> n;
@@ -60,9 +61,9 @@ int main()
      //   cout << arr[i] << endl;
 
     // Populating the keys array with two of the Array elements and three random integers
-    keys[0] = arr[0];
-    keys[1] = arr[1];
-    for(int i=2;i<5;i++)
+   // keys[0] = arr[0];
+    //keys[1] = arr[1];
+    for(int i=0;i<5;i++)
     {
         keys[i] = rand();
     }
@@ -72,29 +73,37 @@ int main()
    // keys[4] = arr[n-1]+10;
 
     // Executing Linear Search for the five keys
-    t = clock();
+
     for(int i = 0;i<5;i++)
     {
+        t = clock();
         LinearSearch(arr,n,keys[i]);
+        t = clock()- t;
+        time_taken = ((double)t)/CLOCKS_PER_SEC;
+        time_taken_li += time_taken;
     }
-    t = clock()- t;
-    double time_taken_li = ((double)t)/CLOCKS_PER_SEC;
+
+
  //  cout << fixed << time_taken*1000.0/5.0 << setprecision(5) <<endl;
-    cout << "Average time in executing Linear Search :" << time_taken_li*1000 / 5.0 << endl;
+    cout << "Total time in executing Linear Search :" << time_taken_li*1e6 << endl;
   //  cout << time_taken / 5.0 << endl;
 
     //Executing Binary Search for the five keys
-    t = clock();
+
     for(int i = 0;i < 5 ; i++)
     {
+        t = clock();
         int idx = BinarySearch(arr,0,n,keys[i]);
         if(idx>=0)
-            cout << keys[i] << " found at position" << idx << endl;
+            cout << keys[i] << " found at position "  << idx << endl;
         else
             cout << keys[i] << " not found!" << endl;
+        t = clock() - t;
+        time_taken = ((double)t)/CLOCKS_PER_SEC;
+        time_taken_bi += time_taken;
     }
-    t = clock() - t;
-    double time_taken_bi = ((double)t)/CLOCKS_PER_SEC;
-    cout << "Average time in executing Binary Search :" << time_taken_bi*1000 / 5.0 << endl;
+
+    //double time_taken_bi = ((double)t)/CLOCKS_PER_SEC;
+    cout << "Total time in executing Binary Search :" << time_taken_bi*1e6 << endl;
 
 }
