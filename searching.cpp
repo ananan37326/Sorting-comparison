@@ -61,9 +61,9 @@ int main()
      //   cout << arr[i] << endl;
 
     // Populating the keys array with two of the Array elements and three random integers
-   // keys[0] = arr[0];
-    //keys[1] = arr[1];
-    for(int i=0;i<5;i++)
+    keys[0] = arr[0];
+    keys[1] = arr[1];
+    for(int i=2;i<5;i++)
     {
         keys[i] = rand();
     }
@@ -76,10 +76,20 @@ int main()
 
     for(int i = 0;i<5;i++)
     {
-        t = clock();
+        //t = clock();
+        auto start = chrono::high_resolution_clock::now();
+
+    // unsync the I/O of C and C++.
+    ios_base::sync_with_stdio(false);
         LinearSearch(arr,n,keys[i]);
-        t = clock()- t;
-        time_taken = ((double)t)/CLOCKS_PER_SEC;
+       // t = clock()- t;
+       // time_taken = ((double)t)/CLOCKS_PER_SEC;
+       auto end = chrono::high_resolution_clock::now();
+
+    // Calculating total time taken by the program.
+    time_taken =
+      chrono::duration_cast<chrono::nanoseconds>(end - start).count();
+        time_taken *= 1e-9;
         time_taken_li += time_taken;
     }
 
@@ -92,14 +102,24 @@ int main()
 
     for(int i = 0;i < 5 ; i++)
     {
-        t = clock();
+        //t = clock();
+         auto start = chrono::high_resolution_clock::now();
+
+    // unsync the I/O of C and C++.
+    ios_base::sync_with_stdio(false);
         int idx = BinarySearch(arr,0,n,keys[i]);
         if(idx>=0)
             cout << keys[i] << " found at position "  << idx << endl;
         else
             cout << keys[i] << " not found!" << endl;
-        t = clock() - t;
-        time_taken = ((double)t)/CLOCKS_PER_SEC;
+       // t = clock() - t;
+        //time_taken = ((double)t)/CLOCKS_PER_SEC;
+         auto end = chrono::high_resolution_clock::now();
+
+    // Calculating total time taken by the program.
+    time_taken =
+      chrono::duration_cast<chrono::nanoseconds>(end - start).count();
+        time_taken *= 1e-9;
         time_taken_bi += time_taken;
     }
 
